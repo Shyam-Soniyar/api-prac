@@ -42,12 +42,13 @@ function App() {
       const data = await response.json();
       if (data) {
         setData(data);
+        console.log(data);
+
       }
     };
     fetchImageData();
   }, [page, query])
 
-  const totalPages = data ? Math.ceil(data.totalHits / 8) : 1;
 
   const handleSearch = (e) => {
     if (debounce.current) {
@@ -65,46 +66,6 @@ function App() {
     setQuery(filter.query);
     setPage(1);
   }
-
-  const renderPagination = () => {
-    const pages = [];
-    const maxPage = Math.min(totalPages, 50);
-
-    // Previous
-    pages.push(
-      <button key="prev" className="pagination-btn" disabled={page === 1} onClick={() => setPage(page - 1)}>
-        Previous
-      </button>
-    );
-
-    // First pages
-    for (let i = 1; i <= Math.min(3, maxPage); i++) {
-      pages.push(
-        <button key={i} className={`pagination-btn ${page === i ? 'active' : ''}`} onClick={() => setPage(i)}>
-          {i}
-        </button>
-      );
-    }
-
-    // Ellipsis
-    if (maxPage > 4) {
-      pages.push(<span key="dots" className="pagination-btn cursor-default">...</span>);
-      pages.push(
-        <button key={maxPage} className={`pagination-btn ${page === maxPage ? 'active' : ''}`} onClick={() => setPage(maxPage)}>
-          {maxPage}
-        </button>
-      );
-    }
-
-    // Next
-    pages.push(
-      <button key="next" className="pagination-btn" disabled={page >= maxPage} onClick={() => setPage(page + 1)}>
-        Next
-      </button>
-    );
-
-    return pages;
-  };
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#f3f4f6' }}>
@@ -151,7 +112,7 @@ function App() {
             <img
               className="w-full object-cover"
               style={{ height: '200px' }}
-              src={image.previewURL}
+              src={image.previewURL.replace("_150.", "_640.")}
               alt={image.tags}
             />
             <div className="flex flex-col justify-between flex-1 p-4">
@@ -180,7 +141,16 @@ function App() {
 
       {/* Pagination */}
       <div className="flex justify-center items-center gap-1 pb-8">
-        {renderPagination()}
+        {/* {renderPagination()} */}
+        <button className='rounded-full shadow flex items-center justify-center size-10 cursor-pointer' onClick={() => setPage(page - 1)} disabled={page === 1}>
+          {'<'}
+        </button>
+
+        <span className='rounded-lg shadow flex items-center justify-center size-10 cursor-pointer' style={{ margin: "0 10px" }}>{page}</span>
+
+        <button className='rounded-full shadow flex items-center justify-center size-10 cursor-pointer' onClick={() => setPage(page + 1)}>
+          {'>'}
+        </button>
       </div>
     </div>
   )
