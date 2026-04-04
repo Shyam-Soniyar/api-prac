@@ -106,7 +106,7 @@ function App() {
       </div>
 
       {/* Image Grid */}
-      <div className="grid grid-cols-4 gap-5 px-8 py-6">
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 px-8 py-6">
         {data?.hits?.map((image) => (
           <div key={image.id} className="image-card flex flex-col bg-white rounded-xl overflow-hidden border border-gray-200">
             <img
