@@ -58,7 +58,10 @@ function App() {
       setQuery(e.target.value);
       setPage(1);
       setActiveFilter('');
-    }, 1000);
+      if(!e.target.value) {
+        setActiveFilter('All');
+      }
+    }, 800);
   }
 
   const handleFilterClick = (filter) => {
