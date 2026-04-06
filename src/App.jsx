@@ -36,14 +36,14 @@ function App() {
   const navigate = useNavigate();
   const debounce = useRef(null);
 
+  const totalPage = Math.ceil(data?.totalHits / 8);
+
   useEffect(() => {
     const fetchImageData = async () => {
       const response = await fetch(`https://pixabay.com/api/?key=55291921-2ced599f065e80b80f0484e72&q=${query}&per_page=8&page=${page}`);
       const data = await response.json();
       if (data) {
         setData(data);
-        console.log(data);
-
       }
     };
     fetchImageData();
@@ -142,13 +142,13 @@ function App() {
       {/* Pagination */}
       <div className="flex justify-center items-center gap-1 pb-8">
         {/* {renderPagination()} */}
-        <button className='rounded-full shadow flex items-center justify-center size-10 cursor-pointer' onClick={() => setPage(page - 1)} disabled={page === 1}>
+        <button className='disabled:text-gray-400 disabled:cursor-not-allowed rounded-full shadow flex items-center justify-center size-10 cursor-pointer' onClick={() => setPage(page - 1)} disabled={page === 1}>
           {'<'}
         </button>
 
         <span className='rounded-lg shadow flex items-center justify-center size-10 cursor-pointer' style={{ margin: "0 10px" }}>{page}</span>
 
-        <button className='rounded-full shadow flex items-center justify-center size-10 cursor-pointer' onClick={() => setPage(page + 1)}>
+        <button className='disabled:text-gray-400 disabled:cursor-not-allowed rounded-full shadow flex items-center justify-center size-10 cursor-pointer' onClick={() => setPage(page + 1)} disabled={page === totalPage}>
           {'>'}
         </button>
       </div>

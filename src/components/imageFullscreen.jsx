@@ -86,10 +86,10 @@ const ImageFullscreen = () => {
           {/* Image Section */}
           <div className="flex-1 flex flex-col items-center justify-center px-6 pb-6 lg:px-12">
             <img
-              src={image.previewURL.replace("_150.", "_640.") || image.webformatURL}
+              src={image.previewURL.replace("_150.", "_1280.") || image.webformatURL}
               alt={image.tags}
               className="max-w-full rounded-lg object-contain"
-              style={{ height: '75vh', width: '75vw' }}
+              style={{ height: '75vh' }}
             />
           </div>
 
